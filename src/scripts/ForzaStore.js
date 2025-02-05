@@ -33,13 +33,11 @@ const customScacchiera = {
     return tokenInserito;
   },
   dimensioni: () => {
-    let dimensioniTotali;
+    let dimensioniTotali = 0;
     scacchiera.subscribe(valore => {
       if (valore.length > 0) {
         dimensioniTotali = valore.length * valore[0].length;
-      } else {
-        dimensioniTotali = 0;
-      }
+      };
     })();
     return dimensioniTotali;
   }

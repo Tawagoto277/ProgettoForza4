@@ -13,7 +13,7 @@
   onDestroy(unsubscribe);
 </script>
 
-<div>
+<div class="quicksand">
   {#if statistiche}
     <p>Mosse offensive: {statistiche.mosseOff}</p>
     <p>Mosse difensive: {statistiche.mosseDif}</p>

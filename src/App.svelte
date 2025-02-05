@@ -37,7 +37,7 @@
 	}
 </script>
 
-<main class:menu={currentView === "menu"} class:game={currentView === "game"}>
+<main class:menu={currentView === "menu"} class:game={currentView === "game"} class="quicksand">
 	{#if currentView !== "summary"}
 		<Bot colore={colore1} nome={nome1} isGameActive={currentView === "game"}/>
 	{/if}

@@ -12,7 +12,7 @@ const customStats = {
         idGame: state.matches.length + 1,
         round: 0,
         players: [],
-        winner: 'Pareggio'
+        winner: 'Pareggio',
       };
 
       return {
@@ -69,8 +69,7 @@ const customStats = {
             return {
               ...match,
               round: tipoMossa !== 'mosseRipetute' ? match.round + 1 : match.round,
-              players: match.players.map(p =>
-                p.nome === player && p.colore === color
+              players: match.players.map(p => p.nome === player && p.colore === color 
                   ? { ...p, [tipoMossa]: (p[tipoMossa] || 0) + 1 }
                   : p
               ),
@@ -84,7 +83,7 @@ const customStats = {
   getStatsPlayer: (player, color) => {
     const state = get(forza4);
     const lastGame = state.matches[state.matches.length - 1];
-    return lastGame?.players.find(p => p.nome === player && p.colore === color) || null;
+    return lastGame?.players.find(p => p.nome === player && p.colore === color);
   }, 
   getGame: () => {
     let stats = null;
