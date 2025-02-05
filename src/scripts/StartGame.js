@@ -13,10 +13,9 @@ export async function startGame(giocatore1, giocatore2) {
   while (conteggioMosse <= mosseMassime && !giocoFinito) {
     let turno = conteggioMosse % 2 === 0;
     let mossa;
-    // let griglia = scacchiera.getScacchiera();
 
     if (turno) {
-      //Controllo mosse inteligenti / casuali
+      //Effettua/Controllo mosse inteligenti / casuali
       mossa = mossaIntelligente(scacchiera.getScacchiera(), giocatore2, giocatore1) || await mossaCasuale(giocatore2, numeriCasuali);
     } else {
       mossa = mossaIntelligente(scacchiera.getScacchiera(), giocatore1, giocatore2) || await mossaCasuale(giocatore1, numeriCasuali);
@@ -25,31 +24,20 @@ export async function startGame(giocatore1, giocatore2) {
     if (mossa === true) {      
       giocoFinito = controllaGriglia(trovaTokenGiocatore(scacchiera.getScacchiera(), turno ? giocatore2 : giocatore1));
       conteggioMosse++;
+
       if(giocoFinito){
         winner = turno ? giocatore2 : giocatore1;
       }
+      
+      if(winner){
+        stats.setWinner(winner.giocatore, winner.colore);
+      }
+      
+      await delay(125);
     };
-
-    if(winner){
-      stats.setWinner(winner.giocatore, winner.colore);
-    }
-
-    await delay(125);
   };
   // console.log('Fine del gioco!');
   return true;
-}
-
-//Controllo vittoria
-function controllaGriglia(tokenGiocate) {
-  for (const token of tokenGiocate) {
-    const sequenza = trovaSequenzaVittoria(tokenGiocate, token);
-    if (sequenza) {
-      // console.log("Vittoria trovata!", sequenza);
-      return true;
-    }
-  }
-  return false;
 }
 
 //Recupera tutti i token di un giocatore
@@ -67,6 +55,18 @@ function trovaTokenGiocatore(griglia, giocatore) {
   
   // console.log("Token giocati:", tokenGiocate);
   return tokenGiocate;
+}
+
+//Controllo vittoria
+function controllaGriglia(tokenGiocate) {
+  for (const token of tokenGiocate) {
+    const sequenza = trovaSequenzaVittoria(tokenGiocate, token);
+    if (sequenza) {
+      // console.log("Vittoria trovata!", sequenza);
+      return true;
+    }
+  }
+  return false;
 }
 
 //Controlla vittoria
@@ -96,9 +96,6 @@ function trovaSequenzaVittoria(arrayToken, token) {
 
 //Valuta mosse inteligenti atk o def
 function mossaIntelligente(griglia, giocatore, avversario) {
-  const mossaDif = "mosseDif";
-  const mosseOff = "mosseOff";
-
   const arrayToken = trovaTokenGiocatore(griglia, giocatore);
   const arraySequenze = creaSequenzePerToken(griglia, arrayToken);
   // console.log(arraySequenze);
@@ -123,6 +120,7 @@ function mossaIntelligente(griglia, giocatore, avversario) {
 
   return null; //Fai mossa random
 
+  //Mossa per bloccare la strike avversaria
   function scegliMossaDifensiva(sequenzeAvversario) {
     let mossaDifensiva = null;
 
@@ -130,7 +128,7 @@ function mossaIntelligente(griglia, giocatore, avversario) {
       sequenze.forEach(({ direzione, posizioni }) => {
         const vuoti = posizioni.filter(p => p.colore === 'Vuoto').length;
 
-        if (vuoti ==1 ) {
+        if (vuoti == 1) {
           const indiceVuoto = posizioni.findIndex(p => p.colore === 'Vuoto');
           // console.log("Indice dell'ultimo vuoto:", indiceVuoto);
           
@@ -143,6 +141,7 @@ function mossaIntelligente(griglia, giocatore, avversario) {
     return mossaDifensiva;
   };
 
+  //Mossa per provare a finire la strike
   function scegliMossaOffensiva(arraySequenze) {
     let migliorMossa = null;
     let minVuoti = Infinity;
@@ -167,6 +166,7 @@ function mossaIntelligente(griglia, giocatore, avversario) {
   }
 }
 
+// Identifica una possibile seguenza per poter creare uno strike
 function creaSequenzePerToken(griglia, arrayToken){
   const direzioni = [
     { x: 1, y: 0 },  // destra
@@ -176,16 +176,21 @@ function creaSequenzePerToken(griglia, arrayToken){
     { x: -1, y: -1 },// sinistra giu
     { x: 1, y: 1 },  // destra su
     { x: -1, y: 1 }, // sinistra su
-  ];
+  ];// Direzioni in base al token preso come token in posizione 0, l'inizio della strike
 
+  // Per ogni token trova delle sequenze per ogni direzione
   const arraySequenze = arrayToken.map( token => {
     const sequenze = direzioni.map(({x, y}) => {
-      const posizioni = [];
+
+      const posizioni = []; 
+
       for (let i = 1; i <= 3; i++) {
         const nuovaCol = token.colonna + i * x;
         const nuovaPos = token.posizione + i * y;
+
         if (posizioneValida(nuovaCol, nuovaPos, griglia)) {
           const tokenPos = griglia[nuovaCol][nuovaPos];
+
           if (tokenPos && (tokenPos.colore === token.colore || tokenPos.colore === 'Vuoto')) {
             posizioni.push(tokenPos);
           } else {
@@ -193,19 +198,22 @@ function creaSequenzePerToken(griglia, arrayToken){
           }
         }
       }
+
       return posizioni.length === 3 ? { direzione: { x, y }, posizioni } : null;
     });
+
     const sequenzeValide = sequenze.filter(sequenza => sequenza !== null);
     return {
       token,
       sequenze: sequenzeValide
     };
-  })
+  });
 
   const arraySequenzeMappato = arraySequenze.filter( s => s.sequenze.length > 0);
   // console.log(arraySequenzeMappato);
   return arraySequenzeMappato;
 
+  //Controlla se la posizione e' fuori dalla griglia di gioco  
   function posizioneValida(col, pos, griglia) {
     return col >= 0 && col < griglia.length && pos >= 0 && pos < griglia[0].length;
   }
@@ -221,6 +229,7 @@ async function mossaCasuale(giocatore, numeri) {
   return mossa;
 }
 
+//Aggiorna le statistiche per ogni mossa 
 function updateStats(nomePlayer, colorePLayer, mossa, esecuzione){
   if (esecuzione) {
     stats.updateStatsPlayer(nomePlayer, colorePLayer, mossa);
@@ -254,6 +263,7 @@ async function ottieniArrayCasuale() {
   }
 }
 
+//Pausa tra un utno e l'altro
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
