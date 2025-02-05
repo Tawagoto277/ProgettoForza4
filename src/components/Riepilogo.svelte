@@ -57,9 +57,9 @@
 
 <style>
   .back{
-    width: 100%;
+    width: 75%;
     padding: 1em;
-    margin: 2em;
+    margin: 2em auto;
     border: 1px solid gray;
     border-radius: 25px;
     box-shadow: 0 4px 8px rgb(73, 73, 73);
@@ -89,11 +89,12 @@
 
   .player {
     width: 50%;
-    padding: 20px 75px;
-    border: 1px solid ;
-    border-radius: 15px;
+    padding: 20px 60px;
+    border: 3px solid ;
+    border-radius: 20px;
     margin: 10px;
     text-align: left;
+    background-color: transparent;
   }
 
   .conButton{

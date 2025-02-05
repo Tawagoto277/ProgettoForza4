@@ -30,10 +30,7 @@
 			colore2 = event.detail.players[1].colore;
 		}
 
-		if (currentView === "game") {
-
-			start(event.detail.colonne, event.detail.celle);
-		}
+		if (currentView === "game") start(event.detail.colonne, event.detail.celle);
 	}
 </script>
 
