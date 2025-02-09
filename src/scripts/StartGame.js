@@ -63,6 +63,7 @@ function controllaGriglia(tokenGiocate) {
     const sequenza = trovaSequenzaVittoria(tokenGiocate, token);
     if (sequenza) {
       // console.log("Vittoria trovata!", sequenza);
+      scacchiera.highlightTokens(Object.values(sequenza));
       return true;
     }
   }

@@ -41,7 +41,9 @@
   {#each $scacchiera as colonna}
   <div class="colonna">
     {#each colonna as cella}
-    <div class="cella" style="background-color:{cella.colore == 'Vuoto' ? 'white' : cella.colore}">
+    <div  
+      class="cella {cella.outline ? 'outline' : ''}"
+      style="background-color:{cella.colore == 'Vuoto' ? 'white' : cella.colore}" >
     </div>
     {/each}
   </div>
@@ -98,6 +100,11 @@
     border: 2px solid white;
     text-align: center;
     align-content: center;
+  }
+
+  .outline{
+    outline-offset: 2px;
+    outline: 3px solid yellow;
   }
 
   button{

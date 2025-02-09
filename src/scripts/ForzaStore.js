@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { get, writable } from "svelte/store";
 import Token from "./Token";
 
 const scacchiera = writable([]);
@@ -8,12 +8,11 @@ const customScacchiera = {
   createScacchiera: (colonne, altezzaColonne) => {
     scacchiera.set(
       Array.from({ length: colonne }, () => 
-        Array.from({ length: altezzaColonne }, () => new Token()))
+        Array.from({ length: altezzaColonne }, () => new Token("Nessuno", "Vuoto")))
     );
   },
   getScacchiera: () => {
-    let scacchieraInversa;
-    scacchiera.subscribe(valore => scacchieraInversa = valore)();
+    const scacchieraInversa = get(scacchiera);
     return scacchieraInversa.map(colonna => [...colonna]);
   },
   addToken: (posColonna, token) => {
@@ -23,7 +22,9 @@ const customScacchiera = {
       if(updateScacchiera[posColonna]){
         const cellaDisponibile  = updateScacchiera[posColonna].findIndex( t => t.giocatore === 'Nessuno');
         if(cellaDisponibile != -1){
-          updateScacchiera[posColonna][cellaDisponibile ] = token;
+          token.setX(posColonna);
+          token.setY(cellaDisponibile);   
+          updateScacchiera[posColonna][cellaDisponibile] = token;
           tokenInserito = true;
         };
       };
@@ -40,7 +41,19 @@ const customScacchiera = {
       };
     })();
     return dimensioniTotali;
-  }
+  },
+  highlightTokens: (sequenza) => {
+    scacchiera.update(currentScacchiera => {
+      return currentScacchiera.map((colonna, colIndex) =>
+        colonna.map((token, rowIndex) => {
+          if (sequenza.some(t => t.colonna === colIndex && t.posizione === rowIndex)) {
+            return { ...token, outline: "Orange" }; // Modifica il token per riflettere l'outline
+          }
+          return token;
+        })
+      );
+    });
+  }  
 };
 
 export default customScacchiera;
