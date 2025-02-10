@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import { slide } from "svelte/transition";
   
   let dispatch = createEventDispatcher();
 
@@ -88,7 +89,7 @@
   }
 </style>
 
-<section id="centro">
+<section id="centro" in:slide={{ duration: 300 }}>
   <h1 class="quicksand">Forza 4</h1>
   <!-- <button>Statistiche</button> -->
   <div id="dimensioni">
@@ -97,5 +98,5 @@
     <label for="altezzaColonne">Altezza griglia</label>
     <input id="altezzaColonne" type="number" min="5" max="10" bind:value={altezzaColonne}>
   </div>
-  <button id="play" on:click={startGame}>PLAY</button>
+  <button id="play" on:click={startGame} >PLAY</button>
 </section>

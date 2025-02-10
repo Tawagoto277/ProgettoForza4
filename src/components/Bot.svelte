@@ -1,7 +1,7 @@
 <script>
   import Statistiche from "./Statistiche.svelte";
   import stats from '../scripts/StatisticheStore'
-
+  
   export let colore;
   export let isGameActive = false;
   export let nome;

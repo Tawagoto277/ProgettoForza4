@@ -2,6 +2,8 @@
   import Token from "../scripts/Token";
   import scacchiera from '../scripts/ForzaStore';
   import stats from '../scripts/StatisticheStore';
+  import { fly, scale } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
   import { onDestroy, onMount, createEventDispatcher } from "svelte";
   import { startGame } from '../scripts/StartGame';
 
@@ -37,11 +39,11 @@
 </script>
 
 <span id="round">Round : {round}</span>
-<div class="griglia">
+<div class="griglia" in:scale={{ duration: 400, start: 0.5 }}>
   {#each $scacchiera as colonna}
   <div class="colonna">
     {#each colonna as cella}
-    <div  
+    <div 
       class="cella {cella.outline ? 'outline' : ''}"
       style="background-color:{cella.colore == 'Vuoto' ? 'white' : cella.colore}" >
     </div>
@@ -50,9 +52,9 @@
   {/each}
 </div>
 {#if showStats}
-<div class="stats">
-  <button on:click={() => {dispatch('changeView',{view: 'summary'})}}>Vai al riepilogo</button>
-</div>
+  <div class="stats">
+    <button on:click={() => {dispatch('changeView',{view: 'summary'})}}>Vai al riepilogo</button>
+  </div>
 {/if}
 
 <style>

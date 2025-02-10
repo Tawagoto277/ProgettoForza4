@@ -47,7 +47,7 @@ const customScacchiera = {
       return currentScacchiera.map((colonna, colIndex) =>
         colonna.map((token, rowIndex) => {
           if (sequenza.some(t => t.colonna === colIndex && t.posizione === rowIndex)) {
-            return { ...token, outline: "Orange" }; // Modifica il token per riflettere l'outline
+            return { ...token, outline: "Orange" };
           }
           return token;
         })

@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { fade } from 'svelte/transition';
   import stats from '../scripts/StatisticheStore';
   import scacchiera from '../scripts/ForzaStore';
 
@@ -20,7 +21,7 @@
   }
 </script>
 
-<main class="back">
+<main class="back" in:fade={{ duration: 400 }}>
   <section>
     <div>
       {#if game.winner === 'Pareggio'}
