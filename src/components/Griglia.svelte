@@ -131,4 +131,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  div.stats button{
+    padding: 15px;
+    font-weight: bold;
+  }
 </style>

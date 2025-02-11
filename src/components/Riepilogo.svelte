@@ -22,8 +22,11 @@
 </script>
 
 <main class="back" in:fade={{ duration: 400 }}>
-  <section>
-    <div>
+  <section class="conRound">
+    <div class="idGame">
+      <h2>ID Partita: {game.idGame}</h2>
+    </div>
+    <div class="h1">
       {#if game.winner === 'Pareggio'}
         <h1>Pareggio</h1>
       {:else}
@@ -31,15 +34,14 @@
       {/if}
     </div>
     <div class="round">
-      <h3>ID Gioco: {game.idGame}</h3>
-      <h3>Round: {game.round}</h3>
+      <h2>Round: {game.round}</h2>
     </div>
   </section>
   <section>
-    <h2>Giocatori</h2>
     <div class="conPlayer">
       {#each game.players as player}
-        <div class="player" style="border-color: {player.colore};">
+      <div class="player" style="border-color: {player.colore};">
+          <span class="cerchio" style="background-color: {player.colore};"></span>
           <h3>{player.nome} ({player.colore})</h3>
           <p>ID: {player.id}</p>
           <p>Mosse Difensive: {player.mosseDif}</p>
@@ -59,7 +61,7 @@
 <style>
   .back{
     width: 75%;
-    padding: 1em;
+    padding: 2em;
     margin: 2em auto;
     border: 1px solid gray;
     border-radius: 25px;
@@ -68,13 +70,11 @@
     backdrop-filter: blur(30px);
   }
 
-  main section{
+  main section.conRound{
     padding: 15px;
     text-align: center;
-  }
-
-  h1, h2{
-    font-size: 2em;
+    display: flex;
+    justify-content: space-around;
   }
 
   .round{
@@ -84,18 +84,28 @@
 
   .conPlayer{
     width: 100%;
+    margin: 10% 0;
     display: flex;
     justify-content: space-around;
   }
 
   .player {
     width: 50%;
-    padding: 20px 60px;
-    border: 3px solid ;
+    padding: 20px 40px;
+    border: 1.5px solid ;
     border-radius: 20px;
     margin: 10px;
     text-align: left;
     background-color: transparent;
+    position: relative;
+  }
+
+  span.cerchio{
+    width: 75px; height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .conButton{
