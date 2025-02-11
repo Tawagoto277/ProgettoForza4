@@ -6,11 +6,10 @@
 	import scacchiera from './scripts/ForzaStore';
 	import forza4 from './scripts/StatisticheStore';
 
-	let colore1 = 'red';
-	let colore2 = 'green';
 	let nome1;
+	let colore1 = 'red';
 	let nome2;
-	let isGameActive = false;
+	let colore2 = 'green';
 	let currentView = 'menu';
 
 	function start(colonna, celle) {

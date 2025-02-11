@@ -53,7 +53,7 @@
 </div>
 {#if showStats}
   <div class="stats">
-    <button on:click={() => {dispatch('changeView',{view: 'summary'})}}>Vai al riepilogo</button>
+    <button on:click={() => {dispatch('changeView',{view: 'summary'})}}>Vai al Riepilogo</button>
   </div>
 {/if}
 
@@ -125,7 +125,6 @@
     transition: .5s;
   }
 
-  
   div.stats{
     position: absolute;
     bottom: 2em;

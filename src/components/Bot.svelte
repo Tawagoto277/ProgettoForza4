@@ -6,7 +6,6 @@
   export let isGameActive = false;
   export let nome;
 
-
   $: if (isGameActive) {
     if(!nome || nome.length === 0) nome = 'Bot';
     stats.setNewPlayer(nome, colore);
@@ -25,7 +24,7 @@
     backdrop-filter: blur(5px);
   }
 
-  .cerchio div{
+  .icon{
     width: 100px; height: 100px;
     margin: 10px auto 30px;
     border-radius: 50%;
@@ -37,20 +36,37 @@
     color: white;
   }
 
-  .cerchio input{
+  .input-container{
+    padding: 0 10%;
+  }
+
+  .input-container input{
     width: 100%;
-    margin: auto;
-    border-radius: 15px;
-    display: inline-block;
+    border-radius: 10px;
+  }
+  
+  .input-container select{
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
   }
 </style>
 
 <section class="cerchio">
-  <div style="background-color: {colore};"></div>
+  <div class="icon" style="background-color: {colore};"></div>
   {#if isGameActive}
     <p class="quicksand">{nome}</p>
     <Statistiche giocatore={nome} {colore}/>
   {:else}
-    <input type="text" bind:value={nome}>
+    <div class="input-container">
+      <input type="text" bind:value={nome}>
+      <select bind:value={colore}>
+        <option value="red" >Rosso</option>
+        <option value="green">Verde</option>
+        <option value="blue">Blu</option>
+        <option value="yellow">Giallo</option>
+        <option value="purple">Viola</option>
+      </select>
+    </div>
   {/if}
 </section>
