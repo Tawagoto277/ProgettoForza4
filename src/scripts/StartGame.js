@@ -33,7 +33,7 @@ export async function startGame(giocatore1, giocatore2) {
         stats.setWinner(winner.giocatore, winner.colore);
       }
       
-      await delay(450);
+      await delay(550);
     };
   };
   // console.log('Fine del gioco!');
@@ -129,7 +129,7 @@ function mossaIntelligente(griglia, giocatore, avversario) {
       sequenze.forEach(({ direzione, posizioni }) => {
         const vuoti = posizioni.filter(p => p.colore === 'Vuoto').length;
 
-        if (vuoti == 1) {
+        if (vuoti === 1) {
           const indiceVuoto = posizioni.findIndex(p => p.colore === 'Vuoto');
           // console.log("Indice dell'ultimo vuoto:", indiceVuoto);
           

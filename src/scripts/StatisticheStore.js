@@ -94,6 +94,10 @@ const customStats = {
     })();  
     return stats;
   },
+  getGames: () => {
+    const { matches } = get(forza4); 
+    return [...matches];
+  }  
 };
 
 export default customStats;

@@ -3,8 +3,11 @@
   import Griglia from "./components/Griglia.svelte";
   import Menu from "./components/Menu.svelte";
   import Riepilogo from "./components/Riepilogo.svelte";
+  import Storico from "./components/Storico.svelte";
 	import scacchiera from './scripts/ForzaStore';
 	import forza4 from './scripts/StatisticheStore';
+	
+	let isGameActive;
 
 	let nome1;
 	let colore1 = 'red';
@@ -34,17 +37,19 @@
 </script>
 
 <main class:menu={currentView === "menu"} class:game={currentView === "game"} class="quicksand">
-	{#if currentView !== "summary"}
+	{#if currentView !== "summary" && currentView !== "storico"}
 		<Bot colore={colore1} nome={nome1} isGameActive={currentView === "game"}/>
 	{/if}
 	{#if currentView === "menu"}
-		<Menu on:startGame={handleViewChange}/>
+		<Menu on:startGame={handleViewChange} on:changeView={handleViewChange}/>
 	{:else if currentView === "game"}
 		<Griglia on:changeView={handleViewChange}/>
 	{:else if currentView === "summary"}
-		<Riepilogo on:changeView={handleViewChange} />
+		<Riepilogo on:changeView={handleViewChange}/>
+	{:else if currentView === "storico"}
+		<Storico on:changeView={handleViewChange}/>
 	{/if}
-	{#if currentView !== "summary"}
+	{#if currentView !== "summary" && currentView !== "storico"}
 		<Bot colore={colore2} nome={nome2} isGameActive={currentView === "game"}/>
 	{/if}
 </main>
