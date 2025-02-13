@@ -53,10 +53,8 @@
 
 <style>
   section{
-    max-width: 90vh;
-    border: 1px solid red;
-    margin: 5% auto;
-    overflow: hidden;
+    width: 100%;
+    padding: 75px 5%;
     display: grid;
     justify-content: space-evenly;
     grid-template-columns: repeat(3, 1fr);
@@ -90,7 +88,7 @@
 
   .buttons{
     position: absolute;
-    left: 50%; bottom: 5%;
+    left: 50%; top: 5%;
     transform: translate( -50%, -50%);
   }
 

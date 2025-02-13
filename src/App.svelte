@@ -60,6 +60,7 @@
 		height: 100%;
 		background: url('SVG/blob-scatter-haikei.svg') no-repeat center center;
 		background-size: cover;
+		overflow: auto;
 		display: flex;
 	}
 	
