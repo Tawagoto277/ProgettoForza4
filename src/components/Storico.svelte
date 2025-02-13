@@ -57,8 +57,8 @@
     padding: 75px 5%;
     display: grid;
     justify-content: space-evenly;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
   }
 
   article.game{
