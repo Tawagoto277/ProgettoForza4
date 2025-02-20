@@ -20,7 +20,7 @@ const customScacchiera = {
     scacchiera.update(currentScacchiera => {
       const updateScacchiera = [...currentScacchiera];
       if(updateScacchiera[posColonna]){
-        const cellaDisponibile  = updateScacchiera[posColonna].findIndex( t => t.giocatore === 'Nessuno');
+        const cellaDisponibile = updateScacchiera[posColonna].findIndex( t => t.giocatore === 'Nessuno');
         if(cellaDisponibile != -1){
           token.setX(posColonna);
           token.setY(cellaDisponibile);   
@@ -30,7 +30,6 @@ const customScacchiera = {
       };
       return updateScacchiera;
     })
-
     return tokenInserito;
   },
   dimensioni: () => {

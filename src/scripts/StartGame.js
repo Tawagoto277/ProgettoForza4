@@ -33,7 +33,7 @@ export async function startGame(giocatore1, giocatore2) {
         stats.setWinner(winner.giocatore, winner.colore);
       }
       
-      await delay(550);
+      await delay(100);
     };
   };
   // console.log('Fine del gioco!');

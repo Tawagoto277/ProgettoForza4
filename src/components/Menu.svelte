@@ -102,7 +102,7 @@
   <div class="bottoni">
     <button on:click={startGame} >PLAY</button>
     {#if games.length !== 0}
-    <button on:click={viewStoricoPartite}>Storico Partite</button>
+      <button on:click={viewStoricoPartite}>Storico Partite</button>
     {/if}
   </div>
 </section>

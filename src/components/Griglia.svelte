@@ -2,8 +2,7 @@
   import Token from "../scripts/Token";
   import scacchiera from '../scripts/ForzaStore';
   import stats from '../scripts/StatisticheStore';
-  import { fly, scale } from "svelte/transition";
-  import { cubicOut } from "svelte/easing";
+  import { scale } from "svelte/transition";
   import { onDestroy, onMount, createEventDispatcher } from "svelte";
   import { startGame } from '../scripts/StartGame';
 

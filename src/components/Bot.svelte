@@ -61,7 +61,7 @@
     <div class="input-container">
       <input type="text" bind:value={nome}>
       <select bind:value={colore}>
-        <option value="red" >Rosso</option>
+        <option value="red">Rosso</option>
         <option value="green">Verde</option>
         <option value="blue">Blu</option>
         <option value="yellow">Giallo</option>
